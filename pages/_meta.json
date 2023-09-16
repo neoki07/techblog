@@ -1,0 +1,12 @@
+{
+  "*": {
+    "theme": {
+      "sidebar": false
+    }
+  },
+  "index": {
+    "title": "Posts",
+    "type": "page",
+    "display": "hidden"
+  }
+}

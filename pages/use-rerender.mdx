@@ -1,0 +1,30 @@
+---
+title: 手動でレンダリングするReactフック
+date: September 16th, 2023
+---
+
+import Date from 'components/date'
+
+# 手動でレンダリングするReactフック
+
+<Date date="September 16th, 2023" />
+
+今後、ゆるゆると開発しているライブラリで非制御コンポーネントを作成することがありそうで、そこで強制的にレンダリングしたい場合に使えるReactフックをメモしておきます。
+
+```tsx
+import { useCallback, useReducer } from 'react'
+
+function useRerender() {
+  const [, trigger] = useReducer(() => ({}), {})
+
+  const rerender = useCallback(() => {
+    trigger()
+  }, [])
+
+  return rerender
+}
+```
+
+こちらの実装を参考にしました。
+
+https://github.com/lilibraries/hooks/blob/master/src/useRerender.ts
