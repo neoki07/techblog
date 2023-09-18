@@ -14,6 +14,7 @@ const themeConfig = {
   editLink: false,
   feedback: false,
   footer: false,
+  gitTimestamp: false,
 }
 
 export default themeConfig
