@@ -15,6 +15,9 @@ const themeConfig = {
   feedback: false,
   footer: false,
   gitTimestamp: false,
+  nextThemes: {
+    forcedTheme: 'light',
+  }
 }
 
 export default themeConfig
