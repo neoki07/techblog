@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+p, li, h3 > a {
+  color: black !important;
+}
