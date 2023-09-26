@@ -11,10 +11,16 @@ const themeConfig = {
       </span>
     );
   },
-  editLink: false,
-  feedback: false,
-  footer: false,
-  gitTimestamp: false,
+  editLink: {
+    component: null,
+  },
+  feedback: {
+    content: null,
+  },
+  footer: {
+    component: null,
+  },
+  gitTimestamp: null,
   nextThemes: {
     forcedTheme: 'light',
   },
