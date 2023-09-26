@@ -17,6 +17,9 @@ const themeConfig = {
   gitTimestamp: false,
   nextThemes: {
     forcedTheme: 'light',
+  },
+  project: {
+    link: "https://github.com/ot07",
   }
 }
 
