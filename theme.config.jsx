@@ -4,7 +4,7 @@ const themeConfig = {
     const title = "ot07's Tech Blog";
     return (
       <span
-        className="mx-2 font-extrabold hidden md:inline select-none"
+        className="mx-2 font-bold hidden md:inline select-none"
         title={title}
       >
         {title}
