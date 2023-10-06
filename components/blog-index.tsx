@@ -2,7 +2,6 @@ import { getAllPages } from "nextra/context";
 import Link from "next/link";
 
 export default function BlogIndex({ more = "Read more" }) {
-  console.log("getAllPages:", getAllPages());
   return getAllPages()
     .filter((page) => page.name !== "index")
     .map((page) => {
