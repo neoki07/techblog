@@ -1,32 +1,23 @@
-/** @type {import('nextra-theme-docs').DocsThemeConfig} */
-const themeConfig = {
-  logo:  () => {
-    const title = "ot07's Tech Blog";
-    return (
-      <span
-        className="mx-2 font-bold hidden md:inline select-none"
-        title={title}
-      >
-        {title}
-      </span>
-    );
-  },
-  editLink: {
-    component: null,
-  },
-  feedback: {
-    content: null,
-  },
-  footer: {
-    component: null,
-  },
-  gitTimestamp: null,
-  nextThemes: {
-    forcedTheme: 'light',
-  },
-  project: {
-    link: "https://github.com/ot07",
-  }
+/* eslint sort-keys: error */
+export default {
+  darkMode: true,
+  dateFormatter: date => `Last updated at ${date.toDateString()}`,
+  footer: (
+    <small
+      style={{
+        borderWidth: '1px 0 0 0',
+        display: 'block',
+        marginTop: '3rem',
+        paddingTop: '2rem'
+      }}
+    >
+      © {new Date().getFullYear()} ot07.
+    </small>
+  ),
+  navs: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/ot07/techblog'
+    }
+  ]
 }
-
-export default themeConfig
