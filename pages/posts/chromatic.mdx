@@ -1,14 +1,10 @@
 ---
 title: 個人開発サイトのStorybookをChromaticで公開してみました
 description: 現在、Web開発の学習のためにショッピングサイトを作成しています。今回、Storybookのコアメンテナが開発しているChromaticを使うことで簡単にStorybookを公開できることを知り、公式感のあるサービスということもあって早速試してみました。
-date: October 9th, 2023
+date: 2023/10/09
 ---
 
-import Date from 'components/date'
-
 # 個人開発サイトのStorybookをChromaticで公開してみました
-
-<Date date="October 9th, 2023" />
 
 現在、Web開発の学習のために[ショッピングサイト](https://next-bazaar.vercel.app/)を作成しています。フロントエンドの共通コンポーネントを[Storybook](https://storybook.js.org/)で管理しており、以前からせっかくなので公開したいなという気持ちがありました。今回、Storybookのコアメンテナが開発している[Chromatic](https://www.chromatic.com/)を使うことで簡単にStorybookを公開できることを知り、公式感のあるサービスということもあって早速試してみました。
 
@@ -24,19 +20,19 @@ ChromaticでStorybookを公開する方法は、以下のドキュメントを�
 最初のデプロイをしてみると、Chromatic上では以下のページが表示されました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/first-build.png" alt="First Build" width="80%" />
+  <img src="/chromatic/first-build.png" alt="First Build" />
 </div>
 
 肝心のStorybookはどこから確認できるのか少し迷いましたが、下にスクロールしていくとリンクがありました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/storybook-link.png" alt="Storybook Link" width="80%" />
+  <img src="/chromatic/storybook-link.png" alt="Storybook Link" />
 </div>
 
 リンクをクリックすると、Storybookが表示されました🥳
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/storybook.png" alt="Storybook" width="80%" />
+  <img src="/chromatic/storybook.png" alt="Storybook" />
 </div>
 
 ## `main`ブランチの最新のStorybookのURLを取得する
@@ -51,7 +47,7 @@ ChromaticでStorybookを公開する方法は、以下のドキュメントを�
 何か情報がないかとChromaticのドキュメントを調べてみると、[GitHub Actionsの設定方法のページ](https://www.chromatic.com/docs/github-actions/#outputs)にヒントがありました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/latest-storybook-url.png" alt="Storybook" width="80%" />
+  <img src="/chromatic/latest-storybook-url.png" alt="Storybook" />
 </div>
 
 どうやら、`https://<ブランチ名>--<プロジェクトID>.chromatic.com`というフォーマットで最新のStorybookのURLを取得できそうです。
