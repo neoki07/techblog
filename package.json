@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "feed": "node scripts/generate-rss.cjs"
   },
   "dependencies": {
     "next": "^13.5.6",
@@ -17,6 +18,8 @@
   },
   "devDependencies": {
     "@types/node": "20.8.7",
+    "gray-matter": "^4.0.3",
+    "rss": "^1.2.2",
     "typescript": "5.2.2"
   }
 }

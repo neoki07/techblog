@@ -16,6 +16,10 @@ export default {
   ),
   navs: [
     {
+      url: "/feed.xml",
+      name: "RSS",
+    },
+    {
       name: 'GitHub',
       url: 'https://github.com/ot07/techblog'
     }
