@@ -1,7 +1,8 @@
-/* eslint sort-keys: error */
+import { formatDate } from 'utils/format'
+
 export default {
   darkMode: true,
-  dateFormatter: date => `Last updated at ${date.toDateString()}`,
+  dateFormatter: date => `最終更新日 - ${formatDate(date)}`,
   footer: (
     <small
       style={{
