@@ -1,0 +1,182 @@
+---
+title: Web開発を学ぶために個人開発しているシステムの構成や実装上の工夫点をまとめました
+description: 現在、Web開発の学習のためにショッピングサイトを作成しています。ゆる〜くコツコツと開発を進めており、気がつけば開発を始めてから約半年が経過していました。それによって、徐々にシステム構成や実装上の工夫点を自分でも覚えておけなくなっているので、ここにまとめておきます。
+date: 2023/10/28
+tag: Web Development, Next Bazaar
+---
+
+import { Callout, FileTree } from 'nextra/components'
+
+現在、Web開発の学習のためにショッピングサイトを作成しています。ゆる〜くコツコツと開発を進めており、気がつけば開発を始めてから約半年が経過していました。それによって、徐々にシステム構成や実装上の工夫点を自分でも覚えておけなくなっているので、ここにまとめておきます。
+
+<Callout type="warning">約半年が経過していることから、既にまとめるのが大変になっています。よって、この記事は、一度にまとめるのではなく、随時更新していく形になると思います。</Callout>
+
+## 技術スタックとシステム構成
+
+技術スタックは次のようになっています。
+
+| カテゴリ | 技術 |
+| --- | --- |
+| フロントエンド | TypeScript, React, Next.js (pages directory), Tanstack Query, Mantine, React Hook Form, Zod, Orval |
+| バックエンド | Go, Fiber, sqlc |
+| データベース | Amazon RDS (PostgreSQL) |
+| ストレージ | Amazon S3 |
+| デプロイ | Vercel, AWS App Runner, Amazon ECR, Docker |
+| CI/CD | GitHub Actions |
+| その他 | Storybook, Chromatic, ESLint, Prettier, Jest, React Testing Library, Mock Service Worker, Swagger |
+
+また、システム構成は、次の図のようになっています。
+
+<img src="https://github.com/ot07/next-bazaar/blob/main/assets/system-architecture.png?raw=true" alt="システム構成図" />
+
+フロントエンドとバックエンドのコードはともに、GitHubにプッシュすると自動的にデプロイされるようになっています。フロントエンドは、VercelとGitHubリポジトリを連携することで、自動的にVercelにデプロイされます。バックエンドは、GitHub Actionsを使ってDockerイメージのビルドとAmazon ECRへのプッシュを行い、その後、AWS App Runnerを使ってデプロイされます。
+
+### 技術選定の方針
+
+技術選定は、次のようなものを考慮して行いました。
+
+- 学習のために、最近のWeb開発のトレンドを取り入れる
+- 採用することで、シンプルな書き方で実装できたり、コードの自動生成などによって少ないコード量で実装ができたりするライブラリを選ぶ
+    - 開発の負担を少なくすることで、システムの品質も高めやすくなると思っています
+- 出来るだけ、最近も活発にメンテナンスされている技術を選ぶ
+    - 主に、GitHubリポジトリのスター数や最終コミット日時、最近のコミット頻度を確認しています
+
+#### プログラミング言語
+
+プログラミング言語には、静的型付け言語であるTypeScriptとGoを選択しました。選択した理由としては、業務で動的型付け言語（JavaScript, PHP）を使った大規模なシステム開発を経験する中で、エラーの早期発見が難しいことや、型が明示されていないコードを理解するのに時間がかかることを課題に感じたからです。
+
+#### フロントエンドのライブラリ選定
+
+フロントエンドに関しては、自前で実装するのが難しい部分を、ライブラリに任せることで開発の負担を減らしました。例えば、次のような部分です。
+
+- フォームの値の管理やバリデーション
+    - 使用ライブラリ：React Hook Form, Zod
+- APIとのやり取りや取得したデータのキャッシュ
+    - 使用ライブラリ：Tanstack Query
+- ボタンなどの共通UIコンポーネント
+    - 使用ライブラリ：Mantine
+
+#### バックエンドの技術選定
+
+この個人開発を始めるまで、Goの開発経験はありませんでした。また、REST APIの開発自体、業務でもそこまで経験していない時期でした。そのため、優れた教材を探して、その構成をベースにすることにしました。教材探しにはかなりこだわりましたが、最終的には、次の教材を参考にしました（Youtubeに無料で公開されているのですが、ボリュームも多く、かなり良い教材だと思います）。
+
+https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE
+
+ただし、教材の中ではWebフレームワークとしてGinを使っていましたが、あえて少し異なる環境にすると開発スキルが身につきやすいと考え、Fiberを使うことにしました（一応、GinとFiberの書き方を見比べて、大きくは変わらなさそうだという確認はあらかじめ行いました）。
+
+## ディレクトリ構成
+
+まず、フロントエンドもバックエンドも、1つのリポジトリにソースコードをまとめています。フロントエンドのコードは`web`ディレクトリに、バックエンドのコードは`api`ディレクトリにそれぞれ格納しています。
+
+<FileTree>
+  <FileTree.Folder name="." defaultOpen>
+    <FileTree.Folder name="web" />
+    <FileTree.Folder name="api" />
+  </FileTree.Folder>
+</FileTree>
+
+同じリポジトリにまとめた理由は、フロントエンドとバックエンドの開発を同時に進めることができるからです。1人で開発する分には、別々のリポジトリにして分離するよりも、開発効率の観点で良いと考えました。また、後述しますが、Swaggerドキュメントを元に、フロントエンドからAPIに対してリクエストを送るコードを自動生成する仕組みを導入しているので、その点でも同じリポジトリにまとめた方が良いと考えました。
+
+### フロントエンドのディレクトリ構成
+
+フロントエンドのディレクトリ構成は、次のようになっています。
+
+<FileTree>
+  <FileTree.Folder name="web" defaultOpen>
+    <FileTree.Folder name="src" defaultOpen>
+      <FileTree.Folder name="api" />
+      <FileTree.Folder name="components" />
+      <FileTree.Folder name="features" />
+      <FileTree.Folder name="hooks" />
+      <FileTree.Folder name="page-components" />
+      <FileTree.Folder name="pages" />
+      <FileTree.Folder name="providers" />
+      <FileTree.Folder name="test-utils" />
+      <FileTree.Folder name="types" />
+      <FileTree.Folder name="utils" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+#### `api`ディレクトリ
+
+Swaggerドキュメントを元に、Orvalを使って自動生成されたコードを格納しています。APIのリクエストやレスポンスの型定義や、各APIにリクエストを送るTanstack Queryライクなフックなどが含まれています。
+
+#### `components`ディレクトリ
+
+全体で共通して使うコンポーネントを格納しています。現在は、React Hook Formの仕組みにMantineのUIを組み合わせたフォームコンポーネントや、Next.jsの`Image`コンポーネントをラップした画像コンポーネント、ページのレイアウトコンポーネントなどを格納しています。
+
+#### `features`ディレクトリ
+
+システムの機能ごとにディレクトリを分けて、その機能に関するコンポーネントやフックなどを格納しています。例えば、認証に関連するコンポーネントやフックは`auth`ディレクトリ、商品に関連するコンポーネントやフックは`products`ディレクトリに格納しています。
+
+#### `hooks`ディレクトリ
+
+全体で共通して使うフックを格納しています。
+
+#### `pages`、`page-components`ディレクトリ
+
+`pages`は、Next.jsで定義されている、ページコンポーネントを格納するディレクトリです。ただ、`pages`内にコンポーネントを置くと、Next.jsによって自動的にルーティングが設定されてしまい、コンポーネント分割などの自由度が低いです。そこで、ページの実態は`page-components`ディレクトリに置き、`pages`ディレクトリは、それらのコンポーネントをラップするだけにしています。これにより、`pages`ディレクトリは、ルーティングの責務だけを持つようにしています。
+
+#### `providers`ディレクトリ
+
+全体で共通して使うプロバイダを格納しています。
+
+#### `test-utils`ディレクトリ
+
+テストコードを実装するときに使うユーティリティ関数を格納しています。
+
+#### `types`ディレクトリ
+
+全体で共通して使う型を格納しています。
+
+#### `utils`ディレクトリ
+
+全体で共通して使うユーティリティ関数を格納しています。
+
+### バックエンドのディレクトリ構成
+
+<FileTree>
+  <FileTree.Folder name="api" defaultOpen>
+    <FileTree.Folder name="api" />
+    <FileTree.Folder name="db" />
+    <FileTree.Folder name="docs" />
+    <FileTree.Folder name="scripts" />
+    <FileTree.Folder name="test_util" />
+    <FileTree.Folder name="token" />
+    <FileTree.Folder name="util" />
+    <FileTree.File name="main.go" />
+  </FileTree.Folder>
+</FileTree>
+
+#### `api`ディレクトリ
+
+APIに関するコードを格納しています。具体的には、サーバの起動処理や各エンドポイントのハンドラ、各ドメインのモデルやサービスを格納しています。
+
+#### `db`ディレクトリ
+
+sqlcによるDB操作のためのコードを格納しています。
+
+#### `docs`ディレクトリ
+
+swagによって自動生成されるSwaggerドキュメントを格納しています。
+
+#### `scripts`ディレクトリ
+
+スクリプトを格納しています。現在は、DBに動作確認用の初期データを投入するスクリプトを格納しています。
+
+#### `test_util`ディレクトリ
+
+テストコードを実装するときに使うユーティリティ関数を格納しています。現在は、テストコード実行時に使用するDBをセットアップする関数などを格納しています。
+
+#### `token`ディレクトリ
+
+セッション管理に使うトークンを生成する関数を格納しています。
+
+#### `util`ディレクトリ
+
+全体で共通して使うユーティリティ関数を格納しています。
+
+#### `main.go`
+
+サーバの起動処理を記述したエンドポイントとなるファイルです。
