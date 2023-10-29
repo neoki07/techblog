@@ -22,7 +22,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 | カテゴリ | 技術 |
 | --- | --- |
-| フロントエンド | TypeScript, React, Next.js (pages directory), Tanstack Query, Mantine, React Hook Form, Zod, Orval |
+| フロントエンド | TypeScript, React, Next.js (pages directory), TanStack Query, Mantine, React Hook Form, Zod, Orval |
 | バックエンド | Go, Fiber, sqlc |
 | データベース | Amazon RDS (PostgreSQL) |
 | ストレージ | Amazon S3 |
@@ -57,7 +57,7 @@ import { Callout, FileTree } from 'nextra/components'
 - フォームの値の管理やバリデーション
     - 使用ライブラリ：React Hook Form, Zod
 - APIとのやり取りや取得したデータのキャッシュ
-    - 使用ライブラリ：Tanstack Query
+    - 使用ライブラリ：TanStack Query
 - ボタンなどの共通UIコンポーネント
     - 使用ライブラリ：Mantine
 
@@ -105,7 +105,7 @@ https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE
 
 #### `api`ディレクトリ
 
-Swaggerドキュメントを元に、Orvalを使って自動生成されたコードを格納しています。APIのリクエストやレスポンスの型定義や、各APIにリクエストを送るTanstack Queryライクなフックなどが含まれています。
+Swaggerドキュメントを元に、Orvalというライブラリを使って自動生成された、APIとのやり取りに役立つコードを格納しています。
 
 #### `components`ディレクトリ
 
@@ -164,7 +164,7 @@ sqlcによるDB操作のためのコードを格納しています。
 
 #### `docs`ディレクトリ
 
-swagによって自動生成されるSwaggerドキュメントを格納しています。
+swagというライブラリによって自動生成されるSwaggerドキュメントを格納しています。
 
 #### `scripts`ディレクトリ
 
@@ -185,3 +185,98 @@ swagによって自動生成されるSwaggerドキュメントを格納してい
 #### `main.go`
 
 サーバの起動処理を記述したエンドポイントとなるファイルです。
+
+## 実装上の工夫点
+
+### API仕様に関するコードの自動生成
+
+バックエンド側では、swagというライブラリを使って、次のような情報からSwaggerドキュメントを自動生成しています。
+
+- APIのリクエストやレスポンスを表す構造体
+- ハンドラの仕様を記述したコメント（ハンドラ関数の上に記述しています）
+
+自動生成に使用するコードの一部を次に示します。
+
+```go filename="api/domain/user/model.go"
+package user_domain
+
+type LoginRequest struct {
+	Email    string `json:"email" validate:"required,email" swaggertype:"string"`
+	Password string `json:"password" validate:"required,min=8"`
+}
+```
+
+```go filename="api/user_handler.go"
+package api
+
+// @Summary      Login
+// @Tags         Users
+// @Param        body body user_domain.LoginRequest true "User object"
+// @Success      200 {object} messageResponse
+// @Failure      400 {object} errorResponse
+// @Failure      401 {object} errorResponse
+// @Failure      500 {object} errorResponse
+// @Router       /users/login [post]
+func (h *userHandler) login(c *fiber.Ctx) error {
+    // ...
+}
+```
+
+また、フロントエンド側では、Swaggerドキュメントを元に、Orvalというライブラリを使ってAPIとのやり取りに役立つコードを自動生成しています。具体的には、次のようなコードを生成しています。
+
+- APIのリクエストやレスポンスの型定義
+- APIとのやり取りを行うフック
+
+自動生成されたコードの一部を次に示します。
+
+```ts filename="src/api/model/userDomainLoginRequest.ts"
+export interface UserDomainLoginRequest {
+  email: string
+  password: string
+}
+```
+
+```ts filename="src/api/endpoints/users/users.ts"
+import type { UseMutationOptions } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+import type { ErrorType } from '../../custom-axios-instance'
+import { customAxiosInstance } from '../../custom-axios-instance'
+import type { ApiErrorResponse, UserDomainLoginRequest } from '../../model'
+
+export const usePostUsersLogin = <
+  TError = ErrorType<ApiErrorResponse>,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof postUsersLogin>>,
+    TError,
+    { data: UserDomainLoginRequest },
+    TContext
+  >
+  request?: SecondParameter<typeof customAxiosInstance>
+}) => {
+  const mutationOptions = getPostUsersLoginMutationOptions(options)
+
+  return useMutation(mutationOptions)
+}
+```
+
+これらのコードからも分かるように、生成されたフックは内部でTanStack Queryが使われており、これがOrvalを使うことにした理由の1つです（個人的に、TanStack Queryは使いやすく、コードもシンプルに保てるライブラリだと思い、好んで使っていました）。
+
+まとめると、バックエンド側に記述したAPIのリクエストやレスポンス、ハンドラの仕様から、フロントエンド側でAPIとのやり取りに役立つコードの自動生成までを行うことができます。これにより、API仕様の変更にフロントエンド側が追従できる仕組みとなっています。
+
+### バックエンドのテストコードの実装方法
+
+<Callout type="warning">後日記載予定です。</Callout>
+
+### フロントエンドのfeaturesディレクトリ
+
+<Callout type="warning">後日記載予定です。</Callout>
+
+### StorybookとChromaticによる共通コンポーネントの管理
+
+<Callout type="warning">後日記載予定です。</Callout>
+
+### API関連コードのディレクトリ構造
+
+<Callout type="warning">後日記載予定です。</Callout>
