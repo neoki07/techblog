@@ -197,7 +197,7 @@ swagというライブラリによって自動生成されるSwaggerドキュメ
 
 自動生成に使用するコードの一部を次に示します。
 
-```go filename="api/domain/user/model.go"
+```go filename="api/domain/user/model.go" {3-6}
 package user_domain
 
 type LoginRequest struct {
@@ -206,7 +206,7 @@ type LoginRequest struct {
 }
 ```
 
-```go filename="api/user_handler.go"
+```go filename="api/user_handler.go" {3-10}
 package api
 
 // @Summary      Login
@@ -264,6 +264,76 @@ export const usePostUsersLogin = <
 これらのコードからも分かるように、生成されたフックは内部でTanStack Queryが使われており、これがOrvalを使うことにした理由の1つです（個人的に、TanStack Queryは使いやすく、コードもシンプルに保てるライブラリだと思い、好んで使っていました）。
 
 まとめると、バックエンド側に記述したAPIのリクエストやレスポンス、ハンドラの仕様から、フロントエンド側でAPIとのやり取りに役立つコードの自動生成までを行うことができます。これにより、API仕様の変更にフロントエンド側が追従できる仕組みとなっています。
+
+### ログアウト時にAPIから取得したデータのキャッシュを削除する処理
+
+APIから取得したデータは、TanStack Queryによって自動的にキャッシュされています。しかし、セキュリティの観点で、ログアウト時にはセキュアなデータのキャッシュ（ユーザが出品した商品の情報など）を削除する必要があります。ただ、中にはセキュアではないデータのキャッシュ（トップページの商品一覧情報など）もあるのですが、それらは削除しないようにしておきたいです。
+
+<Callout type="info">ここでは、ログインしていないと取得できないデータのことを「セキュアなデータ」、ログインしていなくても取得できるデータのことを「セキュアではないデータ」と呼んでいます。</Callout>
+
+キャッシュごとに削除するかどうかを管理するのは、単純に面倒だという問題もありますが、設定を間違えるとセキュアなデータがキャッシュされたままになってしまうというリスクもあります。
+
+そこで、キャッシュを削除する仕組みを次のようにしました。
+
+- 認証を必要としないキャッシュのキーに`non-credentials`を付与する
+- ログアウト時に、`queryClient.removeQueries`を使って、`non-credentials`を含まないキャッシュを削除する
+
+この仕組みを実現するコードを次に示します。
+
+```ts filename="src/utils/query-key.ts"
+import { QueryKey } from '@tanstack/react-query'
+
+const QUERY_KEY_NON_CREDENTIALS = 'non-credentials'
+
+export function addNonCredentialsToQueryKey(queryKey: QueryKey): QueryKey {
+  return [QUERY_KEY_NON_CREDENTIALS, ...queryKey]
+}
+
+export function isNonCredentialsQueryKey(queryKey: QueryKey) {
+  return queryKey[0] === QUERY_KEY_NON_CREDENTIALS
+}
+
+```
+
+```ts filename="src/features/products/hooks/useGetProducts.tsx" {16}
+// セキュアではないデータを取得するフック
+export function useGetProducts({
+  page,
+  pageSize,
+  categoryId,
+}: UseGetProductsParams) {
+  const params = {
+    page_id: page,
+    page_size: pageSize,
+    category_id: categoryId,
+  }
+  const originalQueryKey = getGetProductsQueryKey(params)
+
+  return useGetProductsQuery<GetProductsResultData>(params, {
+    query: {
+      queryKey: addNonCredentialsToQueryKey(originalQueryKey),
+      select: transform,
+    },
+  })
+}
+```
+
+```ts filename="src/features/auth/hooks/useAuth.tsx" {6-8}
+export function useAuth(props?: UseAuthProps): UseAuthResult {
+  // ...
+
+  const logout = useCallback(async () => {
+    logoutMutation.mutate()
+    queryClient.removeQueries({
+      predicate: (query) => !isNonCredentialsQueryKey(query.queryKey),
+    })
+  }, [logoutMutation, queryClient])
+
+  // ...
+}
+```
+
+このような仕組みにすることで、基本的にはすべてのキャッシュが削除され、残したいキャッシュに対して明示的に`non-credentials`を付与することになるので、セキュアなデータのキャッシュを削除し忘れる問題が発生しづらくなっていると思います。
 
 ### バックエンドのテストコードの実装方法
 
