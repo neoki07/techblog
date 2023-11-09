@@ -335,11 +335,84 @@ export function useAuth(props?: UseAuthProps): UseAuthResult {
 
 このような仕組みにすることで、基本的にはすべてのキャッシュが削除され、残したいキャッシュに対して明示的に`non-credentials`を付与することになるので、セキュアなデータのキャッシュを削除し忘れる問題が発生しづらくなっていると思います。
 
-### バックエンドのテストコードの実装方法
-
-<Callout type="warning">後日記載予定です。</Callout>
-
 ### フロントエンドのfeaturesディレクトリ
+
+フロントエンドのディレクトリ構成の中に、`features`ディレクトリを作っています。このディレクトリは、アプリケーションの機能ごとにディレクトリを分けて、その機能に関するコンポーネントやフックなどを格納するためのディレクトリです。このアイデアは、[Bulletproof React](https://github.com/alan2207/bulletproof-react)というReactアプリケーション向けのアーキテクチャを参考にしました。
+
+#### `features`の中身の紹介
+
+現在の`features`ディレクトリの中身を簡単に紹介すると、次のようになっています。
+
+<FileTree>
+  <FileTree.Folder name="features" defaultOpen>
+    <FileTree.Folder name="auth" defaultOpen>
+      <FileTree.Folder name="components" defaultOpen>
+        <FileTree.File name="AuthGuard.tsx" />
+      </FileTree.Folder>
+      <FileTree.Folder name="hooks" defaultOpen>
+        <FileTree.File name="useAuth.tsx" />
+        <FileTree.File name="useCurrentUser.tsx" />
+      </FileTree.Folder>
+      <FileTree.Folder name="utils" defaultOpen>
+        <FileTree.File name="getCurrentUser.ts" />
+      </FileTree.Folder>
+      <FileTree.File name="index.ts" />
+    </FileTree.Folder>
+    <FileTree.Folder name="products" defaultOpen>
+      <FileTree.Folder name="components" defaultOpen>
+        <FileTree.File name="ProductCard.tsx" />
+        <FileTree.File name="ProductCardSkeleton.tsx" />
+        <FileTree.File name="ProductForm.tsx" />
+        <FileTree.File name="ProductList.tsx" />
+      </FileTree.Folder>
+      <FileTree.Folder name="hooks" defaultOpen>
+        <FileTree.File name="useAddProduct.tsx" />
+        <FileTree.File name="useGetMyProducts.tsx" />
+        <FileTree.File name="useGetProduct.tsx" />
+        <FileTree.File name="useGetProductCategories.tsx" />
+        <FileTree.File name="useGetProducts.tsx" />
+        <FileTree.File name="useUpdateProduct.tsx" />
+      </FileTree.Folder>
+      <FileTree.File name="index.ts" />
+    </FileTree.Folder>
+    <FileTree.Folder name="upload" defaultOpen>
+      <FileTree.Folder name="file" defaultOpen>
+        <FileTree.File name="index.ts" />
+        <FileTree.File name="s3.ts" />
+      </FileTree.Folder>
+      <FileTree.File name="index.ts" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+簡単に各ディレクトリや、その中に格納されているものを紹介します（ここで紹介していないものもありますが、長くなるので省略します）。
+
+`auth`ディレクトリには、認証に関するものを格納しています。例えば、次のようなものがあります。
+
+- 認証を必要とするページにログインしていないユーザがアクセスしたときに、ログインページにリダイレクトする`AuthGuard`コンポーネント
+- ログインやログアウト、アカウント作成などの処理を行う関数を提供する`useAuth`フック
+- ログインしているユーザの情報を取得する`useCurrentUser`フック
+
+`products`ディレクトリには、商品に関するものを格納しています。例えば、次のようなものがあります。
+
+- 商品の一覧を表示する`ProductList`コンポーネント
+- 商品を出品するときに入力するフォームを表示する`ProductForm`コンポーネント
+- 商品の追加・取得・更新を行うフック群
+
+`upload`ディレクトリには、画像のアップロードに関するものを格納しています。例えば、次のようなものがあります。
+
+- ファイルをS3にアップロードする関数
+
+#### `features`ディレクトリを採用した理由
+
+理由としては、次の2つがあります。
+
+- 新しいファイルをどこに置くか考えるときに、機能によるカテゴリ分けが直感的に分かりやすいと感じたから
+- 1つの機能に関するコンポーネントやフックの距離が近いほうが、構造の理解やファイル管理がしやすいと感じたから
+
+このような理由から採用したのですが、実際に使ってみても考えやすい（脳への負担が少ない）構造だと感じました。
+
+### バックエンドのテストコードの実装方法
 
 <Callout type="warning">後日記載予定です。</Callout>
 
