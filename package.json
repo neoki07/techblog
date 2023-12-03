@@ -10,6 +10,7 @@
     "feed": "node scripts/generate-rss.cjs"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "next": "^13.5.6",
     "nextra": "^2.13.2",
     "nextra-theme-blog": "^2.13.2",

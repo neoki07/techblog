@@ -2,12 +2,15 @@ const { promises: fs } = require('fs')
 const path = require('path')
 const RSS = require('rss')
 const matter = require('gray-matter')
+require('dotenv').config()
+
+const appUrl = process.env.APP_URL
 
 async function generate() {
   const feed = new RSS({
     title: "ot07's Tech Blog",
-    site_url: 'https://techblog-ot07.vercel.app/',
-    feed_url: 'https://techblog-ot07.vercel.app/feed.xml'
+    site_url: appUrl,
+    feed_url: path.join(appUrl, 'feed.xml')
   })
 
   const posts = await fs.readdir(path.join(__dirname, '..', 'pages', 'posts'))
@@ -24,7 +27,7 @@ async function generate() {
 
       feed.item({
         title: frontmatter.data.title,
-        url: '/posts/' + name.replace(/\.mdx?/, ''),
+        url: path.join(appUrl, 'posts', name.replace(/\.mdx?/, '')),
         date: frontmatter.data.date,
         description: frontmatter.data.description,
         categories: frontmatter.data.tag.split(','),
