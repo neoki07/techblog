@@ -8,7 +8,7 @@ const appUrl = process.env.APP_URL
 
 async function generate() {
   const feed = new RSS({
-    title: "ot07's Tech Blog",
+    title: "neoki's Tech Blog",
     site_url: appUrl,
     feed_url: path.join(appUrl, 'feed.xml')
   })

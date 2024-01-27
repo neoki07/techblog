@@ -13,7 +13,7 @@ export default {
         textAlign: 'center',
       }}
     >
-      © {new Date().getFullYear()} ot07. Built using <a href="https://nextra.site" target="_blank" rel="noopener noreferrer">Nextra</a>, hosted on <a href="https://vercel.com/dashboard" target="_blank" rel="noopener noreferrer">Vercel</a>.
+      © {new Date().getFullYear()} neoki. Built using <a href="https://nextra.site" target="_blank" rel="noopener noreferrer">Nextra</a>, hosted on <a href="https://vercel.com/dashboard" target="_blank" rel="noopener noreferrer">Vercel</a>.
     </small>
   ),
   navs: [
@@ -23,7 +23,7 @@ export default {
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/ot07/techblog'
+      url: 'https://github.com/neokidev/techblog'
     }
   ]
 }
