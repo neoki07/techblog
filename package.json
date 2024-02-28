@@ -10,17 +10,17 @@
     "feed": "node scripts/generate-rss.cjs"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "next": "^13.5.6",
-    "nextra": "^2.13.2",
-    "nextra-theme-blog": "^2.13.2",
+    "nextra": "^2.13.3",
+    "nextra-theme-blog": "^2.13.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "20.8.7",
+    "@types/node": "20.11.21",
     "gray-matter": "^4.0.3",
     "rss": "^1.2.2",
-    "typescript": "5.2.2"
+    "typescript": "5.3.3"
   }
 }
