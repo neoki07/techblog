@@ -10,7 +10,7 @@ import { Callout, FileTree } from 'nextra/components'
 現在、Web開発の学習のためにショッピングサイトを作成しています。
 
 - [Webサイト](https://next-bazaar.vercel.app/)
-- [GitHubリポジトリ](https://github.com/neokidev/next-bazaar)
+- [GitHubリポジトリ](https://github.com/neoki07/next-bazaar)
 
 ゆる〜くコツコツと開発を進めており、気がつけば開発を始めてから約半年が経過していました。それによって、徐々にシステム構成や実装上の工夫点を自分でも覚えておけなくなっているので、ここにまとめておきます。
 
@@ -32,7 +32,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 また、システム構成は、次の図のようになっています。
 
-<img src="https://github.com/neokidev/next-bazaar/blob/main/assets/system-architecture.png?raw=true" alt="システム構成図" />
+<img src="https://github.com/neoki07/next-bazaar/blob/main/assets/system-architecture.png?raw=true" alt="システム構成図" />
 
 フロントエンドとバックエンドのコードはともに、GitHubにプッシュすると自動的にデプロイされるようになっています。フロントエンドは、VercelとGitHubリポジトリを連携することで、自動的にVercelにデプロイされます。バックエンドは、GitHub Actionsを使ってDockerイメージのビルドとAmazon ECRへのプッシュを行い、その後、AWS App Runnerを使ってデプロイされます。
 

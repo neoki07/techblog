@@ -23,7 +23,7 @@ export default {
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/neokidev/techblog'
+      url: 'https://github.com/neoki07/techblog'
     }
   ]
 }
