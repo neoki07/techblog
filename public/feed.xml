@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[neoki's Tech Blog]]></title>
+        <description><![CDATA[neoki's Tech Blog]]></description>
+        <link>https://techblog.neoki.me/</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 07 Nov 2024 11:30:29 GMT</lastBuildDate>
+        <atom:link href="https:/techblog.neoki.me/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Changesetsの公開処理をpublishスクリプトで行うと失敗してしまう]]></title>
+            <description><![CDATA[Changesetsの公開処理をpublishスクリプトで行うとGitHub Actionsワークフローが失敗してしまう問題について解決策を記載しています。]]></description>
+            <link>https:/techblog.neoki.me/posts/changesets-publish</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/changesets-publish</guid>
+            <category><![CDATA[Changesets]]></category>
+            <category><![CDATA[ npm]]></category>
+            <pubDate>Fri, 01 Nov 2024 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[個人開発サイトのStorybookをChromaticで公開してみました]]></title>
+            <description><![CDATA[現在、Web開発の学習のためにショッピングサイトを作成しています。今回、Storybookのコアメンテナが開発しているChromaticを使うことで簡単にStorybookを公開できることを知り、公式感のあるサービスということもあって早速試してみました。]]></description>
+            <link>https:/techblog.neoki.me/posts/chromatic</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/chromatic</guid>
+            <category><![CDATA[Storybook]]></category>
+            <category><![CDATA[Chromatic]]></category>
+            <pubDate>Sun, 08 Oct 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[自作CLIツールをHomebrewで公開しました]]></title>
+            <description><![CDATA[昔作成したCLIツールを、アップデートのついでにHomebrewでインストールできるようにしました。この記事では、その手順を紹介します。]]></description>
+            <link>https:/techblog.neoki.me/posts/homebrew-git-co</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/homebrew-git-co</guid>
+            <category><![CDATA[Homebrew]]></category>
+            <category><![CDATA[ Rust]]></category>
+            <category><![CDATA[ CLI]]></category>
+            <category><![CDATA[ OSS]]></category>
+            <pubDate>Sat, 04 Nov 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[GitHub Actionsでポートフォリオサイトの情報を毎日更新する仕組みを作りました]]></title>
+            <description><![CDATA[僕のポートフォリオサイトでは、アクティブに活動していることをアピールするために、GitHubのコントリビューション数を表示しています。そこで、GitHub Actionsで以下のようなワークフローファイルを作成することで、毎日決まった時刻に情報を取得し、静的なコンテンツとしてデプロイする仕組みを作りました。]]></description>
+            <link>https:/techblog.neoki.me/posts/portfolio-cron</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/portfolio-cron</guid>
+            <category><![CDATA[GitHub Actions]]></category>
+            <pubDate>Sat, 23 Sep 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Storybook + Axe + GitHub Actionsでアクセシビリティを自動テストする]]></title>
+            <description><![CDATA[GitHub Actionsのワークフロー上でアクセシビリティを自動でテストする方法を紹介します。]]></description>
+            <link>https:/techblog.neoki.me/posts/storybook-a11y-github-actions</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/storybook-a11y-github-actions</guid>
+            <category><![CDATA[Storybook]]></category>
+            <category><![CDATA[ Axe]]></category>
+            <category><![CDATA[ GitHub Actions]]></category>
+            <category><![CDATA[ CI]]></category>
+            <category><![CDATA[ Accessibility]]></category>
+            <pubDate>Sat, 05 Oct 2024 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[手動でレンダリングするReactフック]]></title>
+            <description><![CDATA[今後、ゆるゆると開発しているライブラリで、パフォーマンスを考慮して非制御コンポーネントを作成することがありそうです。そこで、手動でレンダリングしたい場合に使えるReactフックをメモしておきます。]]></description>
+            <link>https:/techblog.neoki.me/posts/use-rerender</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/use-rerender</guid>
+            <category><![CDATA[React]]></category>
+            <category><![CDATA[React Hooks]]></category>
+            <pubDate>Fri, 15 Sep 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Web開発を学ぶために個人開発しているシステムの構成や実装上の工夫点をまとめます]]></title>
+            <description><![CDATA[現在、Web開発の学習のためにショッピングサイトを作成しています。ゆる〜くコツコツと開発を進めており、気がつけば開発を始めてから約半年が経過していました。それによって、徐々にシステム構成や実装上の工夫点を自分でも覚えておけなくなっているので、ここにまとめておきます。]]></description>
+            <link>https:/techblog.neoki.me/posts/next-bazaar</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/next-bazaar</guid>
+            <category><![CDATA[Web Development]]></category>
+            <category><![CDATA[ Next Bazaar]]></category>
+            <pubDate>Fri, 27 Oct 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ポートフォリオサイトの情報を毎日更新する仕組みを見直しました]]></title>
+            <description><![CDATA[僕のポートフォリオサイトでは、アクティブに活動していることをアピールするために、GitHubのコントリビューション数を表示しています。今回は、公開リポジトリでも動作するように、GitHub Actionsの設定を見直したので、その方法を紹介します。]]></description>
+            <link>https:/techblog.neoki.me/posts/portfolio-cron-v2</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/portfolio-cron-v2</guid>
+            <category><![CDATA[GitHub Actions]]></category>
+            <category><![CDATA[Vercel]]></category>
+            <pubDate>Sun, 01 Oct 2023 15:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ScaffdogでReactコンポーネントを自動生成するテンプレートを作ってみました]]></title>
+            <link>https:/techblog.neoki.me/posts/scaffdog</link>
+            <guid isPermaLink="true">https:/techblog.neoki.me/posts/scaffdog</guid>
+            <category><![CDATA[Scaffdog]]></category>
+            <category><![CDATA[ React]]></category>
+            <category><![CDATA[ Storybook]]></category>
+            <category><![CDATA[ Jest]]></category>
+            <pubDate>Fri, 27 Oct 2023 15:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
