@@ -7,7 +7,7 @@ async function getPosts() {
 	const posts = Object.entries(modules)
 		.map(([path, { metadata }]) => {
 			const slug = path.split('/').at(-1)?.replace('.md', '') ?? '';
-			return { ...metadata, slug } satisfies Post;
+			return { ...metadata, slug } satisfies Omit<Post, 'content'>;
 		})
 		.filter((post) => {
 			return post.published && post.slug;
