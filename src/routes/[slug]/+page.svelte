@@ -14,5 +14,5 @@
 	<h1>{data.post.title}</h1>
 	<p>{formatDate(data.post.date)}</p>
 	<p>{data.post.description}</p>
-	<!-- <div>{@html data.content}</div> -->
+	<div>{@html data.post.content}</div>
 </article>
