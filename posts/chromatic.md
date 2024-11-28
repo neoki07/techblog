@@ -24,19 +24,19 @@ ChromaticでStorybookを公開する方法は、以下のドキュメントを�
 最初のデプロイをしてみると、Chromatic上では以下のページが表示されました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/first-build.png" alt="First Build" />
+  <img src="/images/chromatic/first-build.png" alt="First Build" />
 </div>
 
 肝心のStorybookはどこから確認できるのか少し迷いましたが、下にスクロールしていくとリンクがありました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/storybook-link.png" alt="Storybook Link" />
+  <img src="/images/chromatic/storybook-link.png" alt="Storybook Link" />
 </div>
 
 リンクをクリックすると、Storybookが表示されました🥳
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/storybook.png" alt="Storybook" />
+  <img src="/images/chromatic/storybook.png" alt="Storybook" />
 </div>
 
 ## `main`ブランチの最新のStorybookのURLを取得する
@@ -51,7 +51,7 @@ ChromaticでStorybookを公開する方法は、以下のドキュメントを�
 何か情報がないかとChromaticのドキュメントを調べてみると、[GitHub Actionsの設定方法のページ](https://www.chromatic.com/docs/github-actions/#outputs)にヒントがありました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/chromatic/latest-storybook-url.png" alt="Storybook" />
+  <img src="/images/chromatic/latest-storybook-url.png" alt="Storybook" />
 </div>
 
 どうやら、`https://<ブランチ名>--<プロジェクトID>.chromatic.com`というフォーマットで最新のStorybookのURLを取得できそうです。

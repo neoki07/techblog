@@ -10,7 +10,7 @@ published: true
 僕の[ポートフォリオサイト](https://portfolio.neoki.me/ja)では、アクティブに活動していることをアピールするために、GitHubのコントリビューション数を表示しています。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/portfolio-cron/portfolio.png" alt="Portfolio" />
+  <img src="/images/portfolio-cron/portfolio.png" alt="Portfolio" />
 </div>
 
 よくある実装方法としては、ページを表示するときにクライアントサイドでGitHubから情報を取得して表示する方法があると思います。しかし、このサイトは、[Astro](https://docs.astro.build/ja)という高速なWebサイトを構築するためのフレームワークを使用しており、出来るだけ動的なコンテンツを減らしたいという思いがありました。また、そこまでリアルタイムに表示したい情報でもないと思いました。

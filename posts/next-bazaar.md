@@ -35,7 +35,7 @@ import { Callout, FileTree } from 'nextra/components'
 
 また、システム構成は、次の図のようになっています。
 
-<img src="https://github.com/neoki07/next-bazaar/blob/main/assets/system-architecture.png?raw=true" alt="システム構成図" />
+<img src="/imageshttps://github.com/neoki07/next-bazaar/blob/main/assets/system-architecture.png?raw=true" alt="システム構成図" />
 
 フロントエンドとバックエンドのコードはともに、GitHubにプッシュすると自動的にデプロイされるようになっています。フロントエンドは、VercelとGitHubリポジトリを連携することで、自動的にVercelにデプロイされます。バックエンドは、GitHub Actionsを使ってDockerイメージのビルドとAmazon ECRへのプッシュを行い、その後、AWS App Runnerを使ってデプロイされます。
 
@@ -428,7 +428,7 @@ Storybookを導入した一番の理由としては、企業のチーム開発�
 Storybookを使うと、共通コンポーネントの実装者が表示パターンごとにストーリーを作成しておくことで、どのような使い方ができるのかをドキュメントとして残すことができます。例えば、このプロジェクトでは`Checkbox`コンポーネントの通常時・エラー発生時のストーリーを作成しています（以下の画像を参照）。こうしておくと、Storybook上でこれらの表示パターンを並べて確認できるので、使い方を網羅的に把握するのが簡単になります。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/next-bazaar/storybook.png" alt="Storybook" />
+  <img src="/images/next-bazaar/storybook.png" alt="Storybook" />
 </div>
 
 ### バックエンドのテストコードの実装方法

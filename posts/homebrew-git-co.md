@@ -37,7 +37,7 @@ SHA256の値は、Formulaファイルを作成するときに使います。
 その後、GitHub上でリリースを作成して、そのリリースにアセットとしてバイナリをアップロードしました。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/homebrew-git-co/github-release.png" alt="GitHub Release" />
+  <img src="/images/homebrew-git-co/github-release.png" alt="GitHub Release" />
 </div>
 
 

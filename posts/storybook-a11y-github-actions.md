@@ -27,13 +27,13 @@ npx storybook@latest init
 上記の手順のように、空のプロジェクトに対してStorybookをインストールする場合、どのフレームワークを使うか聞かれるので、任意のものを選択します。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/storybook-a11y-github-actions/install-script-framework.png" alt="" />
+  <img src="/images/storybook-a11y-github-actions/install-script-framework.png" alt="" />
 </div>
 
 Storybookのインストールが完了すると、自動的にブラウザでStorybookが起動します。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/storybook-a11y-github-actions/storybook.png" alt="" />
+  <img src="/images/storybook-a11y-github-actions/storybook.png" alt="" />
 </div>
 
 ## アクセシビリティのテストを実行する仕組みを作る
@@ -119,7 +119,7 @@ jobs:
 GitHubリポジトリに今回のプロジェクトをプッシュすると、自動的にGitHub Actionsのワークフローが実行され、アクセシビリティのテストができます。
 
 <div align="center" style={{ marginTop: "1rem" }}>
-  <img src="/storybook-a11y-github-actions/github-ci-result.png" alt="" />
+  <img src="/images/storybook-a11y-github-actions/github-ci-result.png" alt="" />
 </div>
 
 ただし、`npx storybook@latest init`したときにStorybookによって作成されるコンポーネントには、Axeの基準ではアクセシビリティの問題があるようで、テストは失敗してしまいます😓
