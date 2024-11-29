@@ -9,6 +9,9 @@
 	<title>{config.title}</title>
 </svelte:head>
 
+<header>
+	<span>{config.title}</span>
+</header>
 <sction>
 	<ul>
 		{#each data.posts as post}
@@ -20,3 +23,14 @@
 		{/each}
 	</ul>
 </sction>
+
+<style>
+	header {
+		text-align: center;
+	}
+
+	header span {
+		font-size: 2em;
+		font-weight: bold;
+	}
+</style>
