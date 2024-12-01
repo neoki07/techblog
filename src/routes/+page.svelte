@@ -27,10 +27,12 @@
 <style>
 	header {
 		text-align: center;
+		padding: 1.5rem;
 	}
 
 	header span {
-		font-size: 2em;
+		font-size: 1.25rem;
 		font-weight: bold;
+		line-height: 1;
 	}
 </style>
