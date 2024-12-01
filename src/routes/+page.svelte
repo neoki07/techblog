@@ -12,7 +12,7 @@
 <header>
 	<span>{config.title}</span>
 </header>
-<sction>
+<section>
 	<ul>
 		{#each data.posts as post}
 			<li>
@@ -22,7 +22,7 @@
 			</li>
 		{/each}
 	</ul>
-</sction>
+</section>
 
 <style>
 	header {
